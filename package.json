@@ -1,5 +1,5 @@
 {
-  "name": "ryantxu-ajax-panel",
+  "name": "ajax-panel",
   "version": "0.1.0",
   "description": "AJAX Panel Plugin for Grafana",
   "scripts": {
@@ -19,7 +19,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ryantxu/ajax-panel.git"
+    "url": "https://github.com/Leo-Bourbon/ajax-panel.git"
   },
   "devDependencies": {
     "@types/jquery": "^3.5.3",
