@@ -452,8 +452,19 @@ class AjaxCtrl extends MetricsPanelCtrl {
     //console.log('UPDATE template', this.panel, txt);
 
     if (txt) {
+      /*console.log("Txt : ");
+      console.log(txt);*/
+
       this.ngtemplate.html(txt);
       this.ngtemplate.css('display', 'block');
+
+      /*console.log("Html content : ");
+      console.log(this.ngtemplate.html());*/
+
+      /*console.log("ngtemplate :");
+      console.log(this.ngtemplate);*/
+
+
       this.$compile(this.ngtemplate.contents())(this.$scope);
     } else {
       this.ngtemplate.css('display', 'none');
@@ -546,7 +557,10 @@ class AjaxCtrl extends MetricsPanelCtrl {
         return;
       }
     }
-    this.$scope.response = rsp.data;
+
+    /*****************************************************/
+    this.$scope.response = this.$sce.trustAsHtml(rsp.data);
+    /*****************************************************/
     console.log('GOT', rsp);
 
     // Its not an image, so remove it
