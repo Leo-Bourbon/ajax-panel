@@ -449,7 +449,7 @@ class AjaxCtrl extends MetricsPanelCtrl {
         }
       }
     }
-    //console.log('UPDATE template', this.panel, txt);
+    console.log('UPDATE template', this.panel, txt);
 
     if (txt) {
       /*console.log("Txt : ");
@@ -463,7 +463,6 @@ class AjaxCtrl extends MetricsPanelCtrl {
 
       /*console.log("ngtemplate :");
       console.log(this.ngtemplate);*/
-
 
       this.$compile(this.ngtemplate.contents())(this.$scope);
     } else {
@@ -559,7 +558,11 @@ class AjaxCtrl extends MetricsPanelCtrl {
     }
 
     /*****************************************************/
-    this.$scope.response = this.$sce.trustAsHtml(rsp.data);
+    if (this.panel.mode == RenderMode.html) {
+      this.$scope.response = this.$sce.trustAsHtml(rsp.data);
+    } else {
+      this.$scope.response = rsp.data;
+    }
     /*****************************************************/
     console.log('GOT', rsp);
 

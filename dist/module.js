@@ -1394,8 +1394,9 @@ function (_super) {
             console.warn('Unsupported render mode:', this.panel.mode);
         }
       }
-    } //console.log('UPDATE template', this.panel, txt);
+    }
 
+    console.log('UPDATE template', this.panel, txt);
 
     if (txt) {
       /*console.log("Txt : ");
@@ -1511,8 +1512,13 @@ function (_super) {
     /*****************************************************/
 
 
-    this.$scope.response = this.$sce.trustAsHtml(rsp.data);
+    if (this.panel.mode == _types__WEBPACK_IMPORTED_MODULE_6__["RenderMode"].html) {
+      this.$scope.response = this.$sce.trustAsHtml(rsp.data);
+    } else {
+      this.$scope.response = rsp.data;
+    }
     /*****************************************************/
+
 
     console.log('GOT', rsp); // Its not an image, so remove it
 
