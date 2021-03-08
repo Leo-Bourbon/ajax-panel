@@ -208,6 +208,8 @@ class AjaxCtrl extends MetricsPanelCtrl {
    * @override
    */
   issueQueries(datasource: DataSourceApi) {
+    console.log("Issued queries");
+
     if (this.isUsingMetricQuery()) {
       return super.issueQueries(datasource);
     }
@@ -353,8 +355,11 @@ class AjaxCtrl extends MetricsPanelCtrl {
   }
 
   onPanelInitalized() {
+    console.log("Panel initialized");
+
     this.updateFN();
     this.updateTemplate();
+
     $(window).on(
       'resize',
       _.debounce((fn: any) => {
@@ -369,6 +374,8 @@ class AjaxCtrl extends MetricsPanelCtrl {
   }
 
   onInitEditMode() {
+    console.log("Init edit mode");
+
     this.debugParams = {};
     this.addEditorTab('Request', 'public/plugins/' + this.pluginId + '/partials/editor.request.html', 2);
     this.addEditorTab('Display', 'public/plugins/' + this.pluginId + '/partials/editor.display.html', 3);
@@ -449,25 +456,20 @@ class AjaxCtrl extends MetricsPanelCtrl {
         }
       }
     }
+
+
     console.log('UPDATE template', this.panel, txt);
 
     if (txt) {
-      /*console.log("Txt : ");
-      console.log(txt);*/
-
       this.ngtemplate.html(txt);
       this.ngtemplate.css('display', 'block');
-
-      /*console.log("Html content : ");
-      console.log(this.ngtemplate.html());*/
-
-      /*console.log("ngtemplate :");
-      console.log(this.ngtemplate);*/
 
       this.$compile(this.ngtemplate.contents())(this.$scope);
     } else {
       this.ngtemplate.css('display', 'none');
     }
+
+    console.log('Response : ', this.$scope.response);
 
     if (this.$scope.response) {
       this.render();
@@ -491,12 +493,15 @@ class AjaxCtrl extends MetricsPanelCtrl {
 
     this.ngtemplate.html(txt);
     this.$compile(this.ngtemplate.contents())(this.$scope);
+
     if (this.$scope.response) {
       this.render();
     }
   }
 
   process(rsp: FetchResponse<any>) {
+    console.log("Process");
+
     if (this.panel.showTime) {
       let txt: string = this.panel.showTimePrefix ? this.panel.showTimePrefix : '';
       if (this.panel.showTimeValue) {
@@ -564,7 +569,7 @@ class AjaxCtrl extends MetricsPanelCtrl {
       this.$scope.response = rsp.data;
     }
     /*****************************************************/
-    console.log('GOT', rsp);
+    console.log('GOT', rsp, this.$scope.response);
 
     // Its not an image, so remove it
     if (this.objectURL) {
@@ -574,7 +579,7 @@ class AjaxCtrl extends MetricsPanelCtrl {
     }
 
     // JSON Node needs to force refresh
-    if (this.panel.mode === RenderMode.json) {
+    if (this.panel.mode === RenderMode.json || this.panel.mode == RenderMode.html) {
       this.updateTemplate();
     }
 

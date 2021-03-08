@@ -1129,6 +1129,8 @@ function (_super) {
   AjaxCtrl.prototype.issueQueries = function (datasource) {
     var _this = this;
 
+    console.log("Issued queries");
+
     if (this.isUsingMetricQuery()) {
       return _super.prototype.issueQueries.call(this, datasource);
     }
@@ -1290,6 +1292,7 @@ function (_super) {
   AjaxCtrl.prototype.onPanelInitalized = function () {
     var _this = this;
 
+    console.log("Panel initialized");
     this.updateFN();
     this.updateTemplate();
     jquery__WEBPACK_IMPORTED_MODULE_2___default()(window).on('resize', lodash__WEBPACK_IMPORTED_MODULE_3___default.a.debounce(function (fn) {
@@ -1303,6 +1306,7 @@ function (_super) {
   };
 
   AjaxCtrl.prototype.onInitEditMode = function () {
+    console.log("Init edit mode");
     this.debugParams = {};
     this.addEditorTab('Request', 'public/plugins/' + this.pluginId + '/partials/editor.request.html', 2);
     this.addEditorTab('Display', 'public/plugins/' + this.pluginId + '/partials/editor.display.html', 3);
@@ -1399,20 +1403,14 @@ function (_super) {
     console.log('UPDATE template', this.panel, txt);
 
     if (txt) {
-      /*console.log("Txt : ");
-      console.log(txt);*/
       this.ngtemplate.html(txt);
       this.ngtemplate.css('display', 'block');
-      /*console.log("Html content : ");
-      console.log(this.ngtemplate.html());*/
-
-      /*console.log("ngtemplate :");
-      console.log(this.ngtemplate);*/
-
       this.$compile(this.ngtemplate.contents())(this.$scope);
     } else {
       this.ngtemplate.css('display', 'none');
     }
+
+    console.log('Response : ', this.$scope.response);
 
     if (this.$scope.response) {
       this.render();
@@ -1445,6 +1443,8 @@ function (_super) {
   };
 
   AjaxCtrl.prototype.process = function (rsp) {
+    console.log("Process");
+
     if (this.panel.showTime) {
       var txt = this.panel.showTimePrefix ? this.panel.showTimePrefix : '';
 
@@ -1520,7 +1520,7 @@ function (_super) {
     /*****************************************************/
 
 
-    console.log('GOT', rsp); // Its not an image, so remove it
+    console.log('GOT', rsp, this.$scope.response); // Its not an image, so remove it
 
     if (this.objectURL) {
       this.img.css('display', 'none');
@@ -1529,7 +1529,7 @@ function (_super) {
     } // JSON Node needs to force refresh
 
 
-    if (this.panel.mode === _types__WEBPACK_IMPORTED_MODULE_6__["RenderMode"].json) {
+    if (this.panel.mode === _types__WEBPACK_IMPORTED_MODULE_6__["RenderMode"].json || this.panel.mode == _types__WEBPACK_IMPORTED_MODULE_6__["RenderMode"].html) {
       this.updateTemplate();
     } // Force re-render
 
