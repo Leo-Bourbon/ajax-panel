@@ -458,7 +458,7 @@ class AjaxCtrl extends MetricsPanelCtrl {
     }
 
 
-    console.log('UPDATE template', this.panel, txt);
+    //console.log('UPDATE template', this.panel, txt);
 
     if (txt) {
       this.ngtemplate.html(txt);
@@ -469,7 +469,7 @@ class AjaxCtrl extends MetricsPanelCtrl {
       this.ngtemplate.css('display', 'none');
     }
 
-    console.log('Response : ', this.$scope.response);
+    //.log('Response : ', this.$scope.response);
 
     if (this.$scope.response) {
       this.render();
@@ -500,7 +500,7 @@ class AjaxCtrl extends MetricsPanelCtrl {
   }
 
   process(rsp: FetchResponse<any>) {
-    console.log("Process");
+    //console.log("Process");
 
     if (this.panel.showTime) {
       let txt: string = this.panel.showTimePrefix ? this.panel.showTimePrefix : '';
@@ -569,7 +569,7 @@ class AjaxCtrl extends MetricsPanelCtrl {
       this.$scope.response = rsp.data;
     }
     /*****************************************************/
-    console.log('GOT', rsp, this.$scope.response);
+    //console.log('GOT', rsp, this.$scope.response);
 
     // Its not an image, so remove it
     if (this.objectURL) {
